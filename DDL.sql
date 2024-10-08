@@ -1,25 +1,24 @@
-drop schema if exists spring;
+drop schema if exists ProvaSpring;
 
 drop user if exists 'user'@'localhost';
 
-create schema spring;
+create schema ProvaSpring;
 
 create user 'user'@'localhost' identified by 'user123';
 
-grant select, insert, delete, update on spring.* to user@'localhost';
+grant select, insert, delete, update on ProvaSpring.* to user@'localhost';
 
-use spring;
+use ProvaSpring;
 
-create table tra_trabalho (
-    tra_id bigint primary key auto_increment,
-    tra_titulo varchar(100) not null unique,
-    tra_data_hora_entrega datetime not null,
-    tra_descricao varchar(200),
-    tra_grupo varchar(20) not null,
-    tra_nota int,
-    tra_justificativa varchar(100)
+create table alt_alerta (
+    alt_id bigint primary key auto_increment,
+    alt_mensagem varchar(100) not null ,
+    alt_detalhe varchar (255),
+    alt_data_hora_geracao datetime not null,
+    alt_data_hora_verificacao datetime,
+    alt_nivel int
 );
 
-insert into tra_trabalho (tra_titulo, tra_data_hora_entrega, tra_grupo, tra_nota, tra_justificativa)
-    values ('Teste 1', current_timestamp(), 'Alpha', 6, 'Bom, mas falta conteúdo'),
-            ('Teste 2', current_timestamp(), 'Beta', 3, 'Incompleto');
+insert into alt_alerta (alt_mensagem, alt_data_hora_geracao, alt_nivel)
+    values ('Estouro de memória', '2024-03-15 23:59:59', 1),
+            ('Espaço em disco', current_timestamp(), null);
